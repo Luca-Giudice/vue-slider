@@ -21,15 +21,22 @@
 <body>
     <div class="container" id="root">
         <div id="carousel">
-            <i id="prev" class="bi bi-arrow-left-circle-fill"></i>
+            <i v-if="currentIndex" id="prev" class="bi bi-arrow-left-circle-fill" @click="goToPrev"></i>
             <div class="gallery">
-                <img src="img/01.webp" alt="landscape">
-                <img src="img/02.webp" alt="landscape">
-                <img src="img/03.webp" alt="landscape">
-                <img src="img/04.webp" alt="landscape">
-                <img src="img/05.webp" alt="landscape">
+                <figure v-for="(pic,i) in pictures" v-show="i === currentIndex" >
+                    <img :src=" pic.image" :alt="pic.title">
+                    <figcaption>
+                        <h2>{{ pic.title }}</h2>
+                        <h3 v-text="pic.text"></h3>
+                    </figcaption>
+                </figure>
+                <div>
+                    <i v-if="currentIndex !=lastElementIndex" id="next" class="bi bi-arrow-right-circle-fill @click=goToNext"></i>
+                </div>
+                <div id="thumbnails">
+                <img v-for="(pic, i) in pictures" :src="pic.image" :alt="pic.title" :class="{'active': i === currentIndex}">
+                </div>
             </div>
-            <i id="next" class="bi bi-arrow-right-circle-fill"></i>
         </div>
 
     </div>
